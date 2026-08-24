@@ -4,7 +4,7 @@
 <head>
 	<meta charset="UTF-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Day-Mode Scrabble System</title>
+	<title>Scrabble System</title>
 	<style>
 		/* Modern Compact Day-Mode Theme */
 		* {
@@ -14,7 +14,7 @@
 		body {
 			font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
 			background-color: #f4f6f9;
-			color: #2c3e50;
+			color: #000000;
 			display: flex;
 			flex-direction: column;
 			align-items: center;
@@ -30,7 +30,7 @@
 			top: 8px;
 			right: 8px;
 			z-index: 100;
-			background-color: #34495e;
+			background-color: #1938C4;
 		}
 
 		/* Full Black Pause Screen Overlay */
@@ -50,7 +50,7 @@
 		}
 
 		.unpause-btn {
-			background-color: #2ecc71;
+			background-color: #E8D3AE;
 			color: white;
 			font-size: 20px;
 			padding: 14px 32px;
@@ -63,7 +63,7 @@
 		}
 
 		.unpause-btn:hover {
-			background-color: #27ae60;
+			background-color: #D7AF90;
 			transform: scale(1.05);
 		}
 
@@ -102,8 +102,8 @@
 		.swap-tile {
 			width: 60px;
 			height: 60px;
-			background: linear-gradient(135deg, #fffdf9 0%, #fbe9c2 100%);
-			color: #2c3e50;
+			background: linear-gradient(135deg, #FFF1DE 0%, #EFC79C 100%);
+			color: #000000;
 			border-radius: 6px;
 			display: flex;
 			align-items: center;
@@ -175,8 +175,8 @@
 		.blank-letter-btn {
 			width: 42px;
 			height: 42px;
-			background: linear-gradient(135deg, #fffdf9 0%, #fbe9c2 100%);
-			color: #2c3e50;
+			background: linear-gradient(135deg, #FFF1DE 0%, #EFC79C 100%);
+			color: #000000;
 			border: 2px solid #d4a373;
 			border-radius: 6px;
 			font-size: 20px;
@@ -294,7 +294,7 @@
 		.winner-banner {
 			font-size: 18px;
 			font-weight: bold;
-			color: #27ae60;
+			color: #D7AF90;
 			background-color: #ebfbe8;
 			padding: 10px;
 			border-radius: 8px;
@@ -323,7 +323,7 @@
 		.player-stats-title {
 			font-weight: bold;
 			font-size: 13px;
-			color: #2c3e50;
+			color: #000000;
 			border-bottom: 1px solid #cbd5e1;
 			padding-bottom: 3px;
 			margin-bottom: 2px;
@@ -389,7 +389,7 @@
 
 		.time-btn,
 		.play-btn {
-			background-color: #2ecc71;
+			background-color: #EBD6A0D4;
 			color: white;
 			font-size: 16px;
 			padding: 12px 18px;
@@ -404,8 +404,8 @@
 
 		.time-btn:hover,
 		.play-btn:hover {
-			background-color: #27ae60;
-			transform: translateY(-2px);
+			background-color: #E23F2B;
+			transform: translateY(-5px);
 		}
 
 		.custom-time-box {
@@ -418,6 +418,7 @@
 			border: 1px solid #dcdde1;
 			margin-top: 8px;
 		}
+		
 
 		.custom-inputs {
 			display: flex;
@@ -443,7 +444,7 @@
 		h1 {
 			margin: 4px 0 8px 0;
 			font-size: 20px;
-			color: #2c3e50;
+			color: #000000;
 		}
 
 		.container {
@@ -505,7 +506,7 @@
 			text-transform: uppercase;
 			border-radius: 2px;
 			user-select: none;
-			color: #2c3e50;
+			color: #000000;
 			position: relative;
 			container-type: inline-size;
 		}
@@ -520,22 +521,22 @@
 		}
 
 		.tws {
-			background-color: #ff7675;
+			background-color: #BA2F49;
 			color: white;
 		}
 
 		.dws {
-			background-color: #ffb8b8;
+			background-color: #DDAFCC;
 			color: #b33939;
 		}
 
 		.tls {
-			background-color: #54a0ff;
+			background-color: #0D92D5;
 			color: white;
 		}
 
 		.dls {
-			background-color: #81ecec;
+			background-color: #66ADE0;
 			color: #0a3d62;
 		}
 
@@ -601,7 +602,7 @@
 
 		.turn-status {
 			font-size: 10px;
-			color: #27ae60;
+			color: #D7AF90;
 			font-weight: 600;
 			margin-top: 1px;
 			display: none;
@@ -658,7 +659,7 @@
 			font-size: 9px;
 			font-weight: bold;
 			text-align: center;
-			color: #2c3e50;
+			color: #000000;
 		}
 
 		.pool-item span {
@@ -764,8 +765,8 @@
 		.history-tile {
 			width: 22px;
 			height: 22px;
-			background: linear-gradient(135deg, #fffdf9 0%, #fbe9c2 100%);
-			color: #2c3e50;
+			background: linear-gradient(135deg, #FFF1DE 0%, #EFC79C 100%);
+			color: #000000;
 			border: 1px solid #d4a373;
 			border-radius: 3px;
 			display: flex;
@@ -822,7 +823,7 @@
 		}
 
 		.player-rack-row.active-turn {
-			border: 2px solid #2ecc71;
+			border: 2px solid #F4000082;
 			background-color: #fafdfa;
 		}
 
@@ -835,7 +836,7 @@
 		.rack-label {
 			font-weight: bold;
 			font-size: 11px;
-			color: #2c3e50;
+			color: #000000;
 			margin-right: 2px;
 		}
 
@@ -881,8 +882,8 @@
 		.tile {
 			width: 100%;
 			height: 100%;
-			background: linear-gradient(135deg, #fffdf9 0%, #fbe9c2 100%);
-			color: #2c3e50;
+			background: linear-gradient(135deg, #FFF1DE 0%, #EFC79C 100%);
+			color: #000000;
 			border-radius: 3px;
 			display: flex;
 			align-items: center;
@@ -955,8 +956,8 @@
 		}
 
 		button:hover {
-			background-color: #27ae60;
-			transform: translateY(-1px);
+			background-color: #D7AF90;
+			transform: translateY(-5px);
 		}
 
 		button.utility {
@@ -969,7 +970,7 @@
 
 		button.recall-btn {
 			background-color: #f1c40f;
-			color: #2c3e50;
+			color: #000000;
 		}
 
 		button.recall-btn:hover {
@@ -1147,17 +1148,17 @@
 			<button class="time-btn" onclick="setGameTimer(600, 600)">10 MIN PER PLAYER</button>
 			<button class="time-btn" onclick="setGameTimer(1200, 1200)">20 MIN PER PLAYER</button>
 			<button class="time-btn" onclick="setGameTimer(1800, 1800)">30 MIN PER PLAYER</button>
-			<button class="time-btn" style="background-color: #8e44ad;" onclick="toggleCustomTimeUI()">CUSTOM TIMES</button>
+			<button class="time-btn" style="background-color: #ECDBAF;" onclick="toggleCustomTimeUI()">CUSTOM TIMES</button>
 
 			<div class="custom-time-box" id="custom-time-box">
 				<div class="custom-inputs">
 					<div class="custom-field">
 						<label for="p1-mins">Player 1 (Mins):</label>
-						<input type="number" id="p1-mins" min="1" max="180" value="15">
+						<input type="number" id="p1-mins" min="0.0000001" max="180" value="15">
 					</div>
 						<div class="custom-field">
 							<label for="p2-mins">Player 2 (Mins):</label>
-							<input type="number" id="p2-mins" min="1" max="180" value="15">
+							<input type="number" id="p2-mins" min="0.0000001" max="180" value="15">
 					</div>
 						</div>
 						<button class="play-btn" style="margin-top: 8px;" onclick="applyCustomTimer()">START MATCH</button>
@@ -1166,7 +1167,7 @@
 			</div>
 
 			<div class="container">
-				<h1>Scrabble Live Dashboard</h1>
+				<h1>Scrabble System</h1>
 
 				<div class="game-layout">
 					<!-- Main Left Play Column (Board + Racks) -->
@@ -1413,8 +1414,8 @@
 		});
 
 		async function openTimeSelect() {
-			let p1Pass = await customPrompt("Configure Player 1 Key:", "p1", "Security Setup") || "p1";
-			let p2Pass = await customPrompt("Configure Player 2 Key:", "p2", "Security Setup") || "p2";
+			let p1Pass = await customPrompt("Configure Player 1 Key:", "1", "Security Setup") || "p1";
+			let p2Pass = await customPrompt("Configure Player 2 Key:", "2", "Security Setup") || "p2";
 			playerPasswords[1] = p1Pass;
 			playerPasswords[2] = p2Pass;
 
@@ -2345,16 +2346,16 @@
 
 			if (playerScores[1] > playerScores[2]) {
 				winnerBanner.innerText = `🏆 Player 1 Wins! (${playerScores[1]} vs ${playerScores[2]} pts)`;
-				winnerBanner.style.color = "#27ae60";
-				winnerBanner.style.backgroundColor = "#ebfbe8";
+				winnerBanner.style.color = "#ECDBAF";
+				winnerBanner.style.backgroundColor = "#E23F2B";
 			} else if (playerScores[2] > playerScores[1]) {
 				winnerBanner.innerText = `🏆 Player 2 Wins! (${playerScores[2]} vs ${playerScores[1]} pts)`;
-				winnerBanner.style.color = "#27ae60";
-				winnerBanner.style.backgroundColor = "#ebfbe8";
+				winnerBanner.style.color = "#ECDBAF";
+				winnerBanner.style.backgroundColor = "#E23F2B";
 			} else {
 				winnerBanner.innerText = `🤝 It's a Tie! (${playerScores[1]} pts each)`;
-				winnerBanner.style.color = "#d35400";
-				winnerBanner.style.backgroundColor = "#fdebd0";
+				winnerBanner.style.color = "#ECDBAF";
+				winnerBanner.style.backgroundColor = "#E23F2B";
 			}
 
 			// Render statistics for BOTH players
