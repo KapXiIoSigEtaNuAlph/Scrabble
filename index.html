@@ -30,7 +30,7 @@
 			top: 8px;
 			right: 8px;
 			z-index: 100;
-			background-color: #1938C4;
+			background-color: #E23F2B;
 		}
 
 		/* Full Black Pause Screen Overlay */
@@ -63,7 +63,7 @@
 		}
 
 		.unpause-btn:hover {
-			background-color: #D7AF90;
+			background-color: #E23F2B;
 			transform: scale(1.05);
 		}
 
@@ -294,7 +294,7 @@
 		.winner-banner {
 			font-size: 18px;
 			font-weight: bold;
-			color: #D7AF90;
+			color: #2ECC71;
 			background-color: #ebfbe8;
 			padding: 10px;
 			border-radius: 8px;
@@ -602,7 +602,7 @@
 
 		.turn-status {
 			font-size: 10px;
-			color: #D7AF90;
+			color: #2ECC71;
 			font-weight: 600;
 			margin-top: 1px;
 			display: none;
@@ -824,7 +824,7 @@
 		}
 
 		.player-rack-row.active-turn {
-			border: 2px solid #F4000082;
+			border: 2px solid #2ECC71;
 			background-color: #fafdfa;
 		}
 
@@ -994,7 +994,9 @@
 		button.skip-btn:hover {
 			background-color: #7f8c8d;
 		}
-
+		button.submit-btn:hover {
+			background-color: #27ae60; /* Darker green matching the #2ecc71 base */
+		}
 		button.shuffle-btn {
 			background-color: #78e08f;
 			color: #1e272e;
@@ -1209,7 +1211,7 @@
 							</div>
 
 							<div class="controls">
-								<button onclick="submitWord()">Submit Word</button>
+								<button class="submit-btn" onclick="submitWord()">Submit Word</button>
 								<button class="utility skip-btn" onclick="skipTurn()">Skip Turn</button>
 								<button class="reset" onclick="resetBoard()">Reset Match</button>
 							</div>
