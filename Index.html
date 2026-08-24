@@ -1,4 +1,3 @@
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -1156,112 +1155,112 @@
 						<label for="p1-mins">Player 1 (Mins):</label>
 						<input type="number" id="p1-mins" min="1" max="180" value="15">
 					</div>
-					<div class="custom-field">
-						<label for="p2-mins">Player 2 (Mins):</label>
-						<input type="number" id="p2-mins" min="1" max="180" value="15">
+						<div class="custom-field">
+							<label for="p2-mins">Player 2 (Mins):</label>
+							<input type="number" id="p2-mins" min="1" max="180" value="15">
+					</div>
+						</div>
+						<button class="play-btn" style="margin-top: 8px;" onclick="applyCustomTimer()">START MATCH</button>
 					</div>
 				</div>
-				<button class="play-btn" style="margin-top: 8px;" onclick="applyCustomTimer()">START MATCH</button>
 			</div>
-		</div>
-	</div>
 
-	<div class="container">
-		<h1>Scrabble Live Dashboard</h1>
+			<div class="container">
+				<h1>Scrabble Live Dashboard</h1>
 
-		<div class="game-layout">
-			<!-- Main Left Play Column (Board + Racks) -->
-			<div class="main-play-area">
-				<div class="board-container">
-					<div id="board"></div>
-				</div>
-
-				<div class="racks-container">
-					<div class="racks-flex-row">
-						<div class="player-rack-row active-turn" id="row-p1">
-							<div class="rack-controls">
-								<div class="rack-label">Player 1</div>
-								<button class="shuffle-btn" onclick="shuffleRack(1)">Shuffle</button>
-								<button class="utility recall-btn" onclick="recallTiles(1)">Recall</button>
-								<button class="swap-btn" onclick="openSwapModal(1)">Swap</button>
-							</div>
-							<div class="rack-slot-wrapper">
-								<div id="rack-p1" class="rack" ondragover="allowDrop(event)"
-									ondrop="dropToRackFallback(event, 1)"></div>
-								<button class="utility" onclick="toggleRackVisibility(1)" id="hide-btn-1">Show</button>
-							</div>
+				<div class="game-layout">
+					<!-- Main Left Play Column (Board + Racks) -->
+					<div class="main-play-area">
+						<div class="board-container">
+							<div id="board"></div>
 						</div>
 
-						<div class="player-rack-row" id="row-p2">
-							<div class="rack-controls">
-								<div class="rack-label">Player 2</div>
-								<button class="shuffle-btn" onclick="shuffleRack(2)">Shuffle</button>
-								<button class="utility recall-btn" onclick="recallTiles(2)">Recall</button>
-								<button class="swap-btn" onclick="openSwapModal(2)">Swap</button>
+						<div class="racks-container">
+							<div class="racks-flex-row">
+								<div class="player-rack-row active-turn" id="row-p1">
+									<div class="rack-controls">
+										<div class="rack-label">Player 1</div>
+										<button class="shuffle-btn" onclick="shuffleRack(1)">Shuffle</button>
+										<button class="utility recall-btn" onclick="recallTiles(1)">Recall</button>
+										<button class="swap-btn" onclick="openSwapModal(1)">Swap</button>
+									</div>
+									<div class="rack-slot-wrapper">
+										<div id="rack-p1" class="rack" ondragover="allowDrop(event)"
+											ondrop="dropToRackFallback(event, 1)"></div>
+										<button class="utility" onclick="toggleRackVisibility(1)" id="hide-btn-1">Show</button>
+									</div>
+								</div>
+
+								<div class="player-rack-row" id="row-p2">
+									<div class="rack-controls">
+										<div class="rack-label">Player 2</div>
+										<button class="shuffle-btn" onclick="shuffleRack(2)">Shuffle</button>
+										<button class="utility recall-btn" onclick="recallTiles(2)">Recall</button>
+										<button class="swap-btn" onclick="openSwapModal(2)">Swap</button>
+									</div>
+									<div class="rack-slot-wrapper">
+										<div id="rack-p2" class="rack" ondragover="allowDrop(event)"
+											ondrop="dropToRackFallback(event, 2)"></div>
+										<button class="utility" onclick="toggleRackVisibility(2)" id="hide-btn-2">Show</button>
+									</div>
+								</div>
 							</div>
-							<div class="rack-slot-wrapper">
-								<div id="rack-p2" class="rack" ondragover="allowDrop(event)"
-									ondrop="dropToRackFallback(event, 2)"></div>
-								<button class="utility" onclick="toggleRackVisibility(2)" id="hide-btn-2">Show</button>
+
+							<div class="controls">
+								<button onclick="submitWord()">Submit Word</button>
+								<button class="utility skip-btn" onclick="skipTurn()">Skip Turn</button>
+								<button class="reset" onclick="resetBoard()">Reset Match</button>
 							</div>
 						</div>
 					</div>
 
-					<div class="controls">
-						<button onclick="submitWord()">Submit Word</button>
-						<button class="utility skip-btn" onclick="skipTurn()">Skip Turn</button>
-						<button class="reset" onclick="resetBoard()">Reset Match</button>
+					<!-- Sidebar Container Box -->
+					<div class="sidebar">
+						<div id="player1-card" class="player-card active">
+							<div class="player-card-header">
+								<div class="player-name">Player 1</div>
+								<div class="player-timer" id="timer-p1">10:00</div>
+							</div>
+							<div id="score-p1" class="player-score">0</div>
+							<div class="turn-status">Your Turn!</div>
+						</div>
+
+						<div id="player2-card" class="player-card">
+							<div class="player-card-header">
+								<div class="player-name">Player 2</div>
+								<div class="player-timer" id="timer-p2">10:00</div>
+							</div>
+							<div id="score-p2" class="player-score">0</div>
+							<div class="turn-status">Your Turn!</div>
+						</div>
+
+						<div id="pending-score-box">
+							Pending Turn: <span id="pending-value">0</span>
+						</div>
+
+						<button class="challenge-btn" onclick="triggerChallenge()">Challenge Word</button>
+
+						<div class="tile-bag-pool" id="tile-bag-pool">
+							<div class="pool-header">
+								<span class="pool-title">🧳 Remaining Pool: <strong id="pool-count">100</strong></span>
+								<span class="pool-stats">V: <strong id="vowel-count">0</strong> | C: <strong id="consonant-count">0</strong></span>
+							</div>
+							<div class="pool-grid" id="pool-grid"></div>
+						</div>
+
+						<!-- Turn History Container Box -->
+						<div class="turn-history-box">
+							<div class="turn-history-header">
+								📁 Turn History
+							</div>
+							<div class="turn-history-content" id="turn-history-list"></div>
+						</div>
 					</div>
 				</div>
 			</div>
 
-			<!-- Sidebar Container Box -->
-			<div class="sidebar">
-				<div id="player1-card" class="player-card active">
-					<div class="player-card-header">
-						<div class="player-name">Player 1</div>
-						<div class="player-timer" id="timer-p1">10:00</div>
-					</div>
-					<div id="score-p1" class="player-score">0</div>
-					<div class="turn-status">Your Turn!</div>
-				</div>
-
-				<div id="player2-card" class="player-card">
-					<div class="player-card-header">
-						<div class="player-name">Player 2</div>
-						<div class="player-timer" id="timer-p2">10:00</div>
-					</div>
-					<div id="score-p2" class="player-score">0</div>
-					<div class="turn-status">Your Turn!</div>
-				</div>
-
-				<div id="pending-score-box">
-					Pending Turn: <span id="pending-value">0</span>
-				</div>
-
-				<button class="challenge-btn" onclick="triggerChallenge()">Challenge Word</button>
-
-				<div class="tile-bag-pool" id="tile-bag-pool">
-					<div class="pool-header">
-						<span class="pool-title">🧳 Remaining Pool: <strong id="pool-count">100</strong></span>
-						<span class="pool-stats">V: <strong id="vowel-count">0</strong> | C: <strong id="consonant-count">0</strong></span>
-					</div>
-					<div class="pool-grid" id="pool-grid"></div>
-				</div>
-
-				<!-- Turn History Container Box -->
-				<div class="turn-history-box">
-					<div class="turn-history-header">
-						📁 Turn History
-					</div>
-					<div class="turn-history-content" id="turn-history-list"></div>
-				</div>
-			</div>
-		</div>
-	</div>
-
-	<script>
-		const boardEl = document.getElementById('board');
+			<script>
+				const boardEl = document.getElementById('board');
 		const pendingValueEl = document.getElementById('pending-value');
 
 		// State Variables
@@ -2439,7 +2438,7 @@
 			calculateScore();
 			updateTileBagDisplay();
 		}
-	</script>
+			</script>
 </body>
 
 </html>
