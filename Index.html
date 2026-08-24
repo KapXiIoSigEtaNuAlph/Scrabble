@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -26,7 +27,11 @@
 
 		/* Top Pause Button */
 		.corner-pause-btn {
-			display: none;
+			position: absolute;
+			top: 8px;
+			right: 8px;
+			z-index: 100;
+			background-color: #34495e;
 		}
 
 		/* Full Black Pause Screen Overlay */
@@ -240,7 +245,6 @@
 			border-radius: 6px;
 			font-size: 14px;
 			width: 100%;
-			box-sizing: border-box;
 		}
 
 		.custom-dialog-actions {
@@ -273,7 +277,7 @@
 			color: #1e293b;
 			border-radius: 12px;
 			padding: 24px 32px;
-			max-width: 440px;
+			max-width: 480px;
 			width: 100%;
 			box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.3), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
 			display: flex;
@@ -301,18 +305,36 @@
 		.stats-list {
 			display: flex;
 			flex-direction: column;
-			gap: 10px;
+			gap: 12px;
 			text-align: left;
 			background-color: #f8fafc;
 			padding: 14px;
 			border-radius: 8px;
 			border: 1px solid #e2e8f0;
+			max-height: 280px;
+			overflow-y: auto;
+		}
+
+		.player-stats-section {
+			display: flex;
+			flex-direction: column;
+			gap: 6px;
+		}
+
+		.player-stats-title {
+			font-weight: bold;
+			font-size: 13px;
+			color: #2c3e50;
+			border-bottom: 1px solid #cbd5e1;
+			padding-bottom: 3px;
+			margin-bottom: 2px;
 		}
 
 		.stat-row {
 			display: flex;
-			flex-direction: column;
-			font-size: 13px;
+			justify-content: space-between;
+			align-items: center;
+			font-size: 12px;
 		}
 
 		.stat-label {
@@ -324,10 +346,9 @@
 		}
 
 		.stat-val {
-			font-size: 14px;
+			font-size: 12px;
 			font-weight: 600;
 			color: #1e293b;
-			margin-top: 2px;
 		}
 
 		/* Start Overlay & Time Selection Modals */
@@ -421,7 +442,9 @@
 		}
 
 		h1 {
-			display: none;
+			margin: 4px 0 8px 0;
+			font-size: 20px;
+			color: #2c3e50;
 		}
 
 		.container {
@@ -485,7 +508,6 @@
 			user-select: none;
 			color: #2c3e50;
 			position: relative;
-			box-sizing: border-box;
 			container-type: inline-size;
 		}
 
@@ -533,7 +555,6 @@
 			border-radius: 4px;
 			width: 300px;
 			border: 2px solid #bdc3c7;
-			box-sizing: border-box;
 			flex-shrink: 0;
 		}
 
@@ -754,13 +775,19 @@
 			font-size: 11px;
 			font-weight: bold;
 			position: relative;
-			box-sizing: border-box;
 		}
 
-		.history-tile.blank-assigned {
-			background: linear-gradient(135deg, #ff7675 0%, #d63031 100%);
-			color: white;
-			border-color: #c0392b;
+		/* Discolored Blank Tile on Board/Rack/History */
+		.history-tile.blank-assigned,
+		.tile.blank-assigned {
+			background: linear-gradient(135deg, #ff7675 0%, #d63031 100%) !important;
+			color: white !important;
+			border-color: #c0392b !important;
+		}
+
+		.history-tile.blank-assigned .h-pts,
+		.tile.blank-assigned .points {
+			color: rgba(255, 255, 255, 0.85) !important;
 		}
 
 		.history-tile .h-pts {
@@ -771,27 +798,11 @@
 			color: #7f8c8d;
 		}
 
-		.history-tile.blank-assigned .h-pts {
-			color: rgba(255, 255, 255, 0.85);
-		}
-
-		/* Discolored Blank Tile on Board/Rack */
-		.tile.blank-assigned {
-			background: linear-gradient(135deg, #ff7675 0%, #d63031 100%) !important;
-			color: white !important;
-			border-color: #c0392b !important;
-		}
-
-		.tile.blank-assigned .points {
-			color: rgba(255, 255, 255, 0.85) !important;
-		}
-
 		.racks-container {
 			display: flex;
 			flex-direction: column;
 			gap: 6px;
 			width: 100%;
-			box-sizing: border-box;
 		}
 
 		.racks-flex-row {
@@ -864,7 +875,6 @@
 			align-items: center;
 			justify-content: center;
 			position: relative;
-			box-sizing: border-box;
 			container-type: inline-size;
 			min-width: 0;
 		}
@@ -886,7 +896,6 @@
 			z-index: 10;
 			user-select: none;
 			border: 1px solid #d4a373;
-			box-sizing: border-box;
 		}
 
 		.tile:active {
@@ -1090,17 +1099,36 @@
 			<h2>🏁 GAME OVER</h2>
 			<div class="winner-banner" id="winner-banner">Player 1 Wins!</div>
 			<div class="stats-list">
-				<div class="stat-row">
-					<span class="stat-label">⚡ Fastest Word Played</span>
-					<span class="stat-val" id="stat-fastest">N/A</span>
+				<div class="player-stats-section">
+					<div class="player-stats-title">👤 Player 1 Stats</div>
+					<div class="stat-row">
+						<span class="stat-label">⚡ Fastest Word:</span>
+						<span class="stat-val" id="p1-stat-fastest">N/A</span>
+					</div>
+					<div class="stat-row">
+						<span class="stat-label">🐢 Slowest Word:</span>
+						<span class="stat-val" id="p1-stat-slowest">N/A</span>
+					</div>
+					<div class="stat-row">
+						<span class="stat-label">📏 Longest Word:</span>
+						<span class="stat-val" id="p1-stat-longest">N/A</span>
+					</div>
 				</div>
-				<div class="stat-row">
-					<span class="stat-label">🐢 Slowest Word Played</span>
-					<span class="stat-val" id="stat-slowest">N/A</span>
-				</div>
-				<div class="stat-row">
-					<span class="stat-label">📏 Longest Word Played</span>
-					<span class="stat-val" id="stat-longest">N/A</span>
+
+				<div class="player-stats-section">
+					<div class="player-stats-title">👤 Player 2 Stats</div>
+					<div class="stat-row">
+						<span class="stat-label">⚡ Fastest Word:</span>
+						<span class="stat-val" id="p2-stat-fastest">N/A</span>
+					</div>
+					<div class="stat-row">
+						<span class="stat-label">🐢 Slowest Word:</span>
+						<span class="stat-val" id="p2-stat-slowest">N/A</span>
+					</div>
+					<div class="stat-row">
+						<span class="stat-label">📏 Longest Word:</span>
+						<span class="stat-val" id="p2-stat-longest">N/A</span>
+					</div>
 				</div>
 			</div>
 			<button class="play-btn" onclick="resetBoard()">PLAY AGAIN</button>
@@ -1239,6 +1267,7 @@
 		// State Variables
 		let playerScores = { 1: 0, 2: 0 };
 		let playerPasswords = { 1: "p1", 2: "p2" };
+		let initialTimes = { 1: 600, 2: 600 };
 		let playerTimes = { 1: 600, 2: 600 };
 		let activePlayer = 1;
 		let tileBag = [];
@@ -1406,6 +1435,8 @@
 		}
 
 		function setGameTimer(sec1, sec2) {
+			initialTimes[1] = sec1;
+			initialTimes[2] = sec2;
 			playerTimes[1] = sec1;
 			playerTimes[2] = sec2;
 			document.getElementById('time-overlay').style.display = 'none';
@@ -1422,7 +1453,7 @@
 					playerTimes[activePlayer]--;
 					updateTimerDisplay();
 				} else {
-					clearInterval(gameTimerInterval); // Prevents infinite loop
+					clearInterval(gameTimerInterval);
 					isGameStarted = false;
 					customAlert(`Time expired! Player ${activePlayer} loses their turn/game on clock depletion.`, "Time Expired");
 				}
@@ -1547,15 +1578,11 @@
 
 			tileBag.push(...swappedLetters);
 
-			// Automatically hide swapping player's rack to prevent visibility exploit
-			document.getElementById(`rack-p${swappingPlayer}`).classList.add('hidden');
-			document.getElementById(`hide-btn-${swappingPlayer}`).innerText = "Show";
-
 			closeSwapModal();
 
 			canChallenge = false;
 			challengeRollbackSnapshot = null;
-			consecutiveSkips = 0; // Reset consecutive skips on tile swap
+			consecutiveSkips = 0;
 
 			activePlayer = activePlayer === 1 ? 2 : 1;
 			updateTurnInterface();
@@ -1823,7 +1850,20 @@
 			customAlert(`Turn skipped! (${consecutiveSkips}/4 total skips). It is now Player ${activePlayer}'s turn.`);
 		}
 
+		function hideRack(playerNum) {
+			const rack = document.getElementById(`rack-p${playerNum}`);
+			const btn = document.getElementById(`hide-btn-${playerNum}`);
+			if (rack && btn) {
+				rack.classList.add('hidden');
+				btn.innerText = "Show";
+			}
+		}
+
 		async function toggleRackVisibility(playerNum) {
+			if (playerNum !== activePlayer) {
+				await customAlert("You can only reveal tiles during your active turn.");
+				return;
+			}
 			const rack = document.getElementById(`rack-p${playerNum}`);
 			const btn = document.getElementById(`hide-btn-${playerNum}`);
 			if (rack.classList.contains('hidden')) {
@@ -1845,6 +1885,11 @@
 			document.getElementById('player2-card').classList.toggle('active', activePlayer === 2);
 			document.getElementById('row-p1').classList.toggle('active-turn', activePlayer === 1);
 			document.getElementById('row-p2').classList.toggle('active-turn', activePlayer === 2);
+
+			// General Rule: Force hide both tile racks whenever turn changes
+			hideRack(1);
+			hideRack(2);
+
 			turnStartTime = Date.now();
 		}
 
@@ -2082,6 +2127,7 @@
 			const grid = Array(15).fill(null).map(() => Array(15).fill(null));
 			const cells = boardEl.getElementsByClassName('cell');
 			let freshTileCount = 0;
+
 			for (let cell of cells) {
 				const r = parseInt(cell.dataset.row);
 				const c = parseInt(cell.dataset.col);
@@ -2098,7 +2144,6 @@
 				}
 			}
 
-			let turnScore = 0;
 			function getBonusFactors(coord, isFresh) {
 				let letterMultiplier = 1;
 				let wordMultiplier = 1;
@@ -2111,57 +2156,35 @@
 				return { letterMultiplier, wordMultiplier };
 			}
 
-			for (let r = 0; r < 15; r++) {
-				let c = 0;
-				while (c < 15) {
-					if (grid[r][c]) {
-						let wordTiles = [];
-						while (c < 15 && grid[r][c]) {
-							wordTiles.push(grid[r][c]);
-							c++;
-						}
-						if (wordTiles.length >= 2) {
-							let hasFresh = wordTiles.some(t => t.isFresh);
-							if (hasFresh) {
+			function scoreLines(getTile) {
+				let score = 0;
+				for (let i = 0; i < 15; i++) {
+					let j = 0;
+					while (j < 15) {
+						let tile = getTile(i, j);
+						if (tile) {
+							let wordTiles = [];
+							while (j < 15 && (tile = getTile(i, j))) {
+								wordTiles.push(tile);
+								j++;
+							}
+							if (wordTiles.length >= 2 && wordTiles.some(t => t.isFresh)) {
 								let wordSum = 0;
 								let wordMultiplier = 1;
-								for (let tile of wordTiles) {
-									const bonus = getBonusFactors(tile.coord, tile.isFresh);
-									wordSum += tile.points * bonus.letterMultiplier;
+								for (let t of wordTiles) {
+									const bonus = getBonusFactors(t.coord, t.isFresh);
+									wordSum += t.points * bonus.letterMultiplier;
 									wordMultiplier *= bonus.wordMultiplier;
 								}
-								turnScore += (wordSum * wordMultiplier);
+								score += (wordSum * wordMultiplier);
 							}
-						}
-					} else { c++; }
+						} else { j++; }
+					}
 				}
+				return score;
 			}
 
-			for (let c = 0; c < 15; c++) {
-				let r = 0;
-				while (r < 15) {
-					if (grid[r][c]) {
-						let wordTiles = [];
-						while (r < 15 && grid[r][c]) {
-							wordTiles.push(grid[r][c]);
-							r++;
-						}
-						if (wordTiles.length >= 2) {
-							let hasFresh = wordTiles.some(t => t.isFresh);
-							if (hasFresh) {
-								let wordSum = 0;
-								let wordMultiplier = 1;
-								for (let tile of wordTiles) {
-									const bonus = getBonusFactors(tile.coord, tile.isFresh);
-									wordSum += tile.points * bonus.letterMultiplier;
-									wordMultiplier *= bonus.wordMultiplier;
-								}
-								turnScore += (wordSum * wordMultiplier);
-							}
-						}
-					} else { r++; }
-				}
-			}
+			let turnScore = scoreLines((r, c) => grid[r][c]) + scoreLines((c, r) => grid[r][c]);
 
 			if (freshTileCount === 7) turnScore += 50;
 			currentPendingScore = turnScore;
@@ -2209,48 +2232,26 @@
 			}
 
 			let connected = false;
-			if (allSameRow) {
-				let r = coordinates[0].row;
-				let cols = coordinates.map(c => c.col);
-				let minC = Math.min(...cols);
-				let maxC = Math.max(...cols);
+			let indices = coordinates.map(c => allSameRow ? c.col : c.row);
+			let minIdx = Math.min(...indices);
+			let maxIdx = Math.max(...indices);
+			let fixedIdx = allSameRow ? coordinates[0].row : coordinates[0].col;
 
-				for (let c = minC; c <= maxC; c++) {
-					let cell = boardEl.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-					if (!cell.querySelector('.tile')) {
-						await customAlert("Structural Error: Gaps detected inside structural word elements.");
-						return false;
-					}
-					if (!isFirstMove) {
-						if (cell.querySelector('.tile.permanent')) connected = true;
-						let directions = [{r: r-1, c: c}, {r: r+1, c: c}, {r: r, c: c-1}, {r: r, c: c+1}];
-						for (let d of directions) {
-							if (d.r >= 0 && d.r < 15 && d.c >= 0 && d.c < 15) {
-								let adj = boardEl.querySelector(`[data-row="${d.r}"][data-col="${d.c}"]`);
-								if (adj && adj.querySelector('.tile.permanent')) connected = true;
-							}
-						}
-					}
+			for (let idx = minIdx; idx <= maxIdx; idx++) {
+				let r = allSameRow ? fixedIdx : idx;
+				let c = allSameRow ? idx : fixedIdx;
+				let cell = boardEl.querySelector(`[data-row="${r}"][data-col="${c}"]`);
+				if (!cell.querySelector('.tile')) {
+					await customAlert("Structural Error: Gaps detected inside structural word elements.");
+					return false;
 				}
-			} else {
-				let c = coordinates[0].col;
-				let rows = coordinates.map(c => c.row);
-				let minR = Math.min(...rows);
-				let maxR = Math.max(...rows);
-				for (let r = minR; r <= maxR; r++) {
-					let cell = boardEl.querySelector(`[data-row="${r}"][data-col="${c}"]`);
-					if (!cell.querySelector('.tile')) {
-						await customAlert("Structural Error: Gaps detected inside structural word elements.");
-						return false;
-					}
-					if (!isFirstMove) {
-						if (cell.querySelector('.tile.permanent')) connected = true;
-						let directions = [{r: r-1, c: c}, {r: r+1, c: c}, {r: r, c: c-1}, {r: r, c: c+1}];
-						for (let d of directions) {
-							if (d.r >= 0 && d.r < 15 && d.c >= 0 && d.c < 15) {
-								let adj = boardEl.querySelector(`[data-row="${d.r}"][data-col="${d.c}"]`);
-								if (adj && adj.querySelector('.tile.permanent')) connected = true;
-							}
+				if (!isFirstMove) {
+					if (cell.querySelector('.tile.permanent')) connected = true;
+					let directions = [{r: r-1, c: c}, {r: r+1, c: c}, {r: r, c: c-1}, {r: r, c: c+1}];
+					for (let d of directions) {
+						if (d.r >= 0 && d.r < 15 && d.c >= 0 && d.c < 15) {
+							let adj = boardEl.querySelector(`[data-row="${d.r}"][data-col="${d.c}"]`);
+							if (adj && adj.querySelector('.tile.permanent')) connected = true;
 						}
 					}
 				}
@@ -2269,7 +2270,7 @@
 			if (!isValid) return;
 
 			turnCounter++;
-			consecutiveSkips = 0; // Reset consecutive skips on active word submission
+			consecutiveSkips = 0;
 
 			let turnDuration = Math.max(1, Math.round((Date.now() - turnStartTime) / 1000));
 			let wordObjs = getNewlyFormedWordObjects();
@@ -2299,10 +2300,18 @@
 				tile.classList.add('permanent');
 				tile.setAttribute('draggable', 'false');
 			});
+
+			// Replenish tiles from bag
 			replenishRack(activePlayer);
 
-			document.getElementById(`rack-p${activePlayer}`).classList.add('hidden');
-			document.getElementById(`hide-btn-${activePlayer}`).innerText = "Show";
+			// Check if player ran out of tiles (Tile bag is empty AND player's rack has 0 tiles)
+			const currentRack = document.getElementById(`rack-p${activePlayer}`);
+			const remainingTilesInRack = currentRack.querySelectorAll('.tile').length;
+
+			if (tileBag.length === 0 && remainingTilesInRack === 0) {
+				triggerGameEnd();
+				return;
+			}
 
 			activePlayer = activePlayer === 1 ? 2 : 1;
 			updateTurnInterface();
@@ -2312,20 +2321,34 @@
 			updateTileBagDisplay();
 		}
 
+		function updatePlayerEndStats(playerNum) {
+			let pStats = playedWordsStats.filter(p => p.player === playerNum);
+			if (pStats.length > 0) {
+				let fastest = pStats.reduce((min, p) => p.duration < min.duration ? p : min, pStats[0]);
+				let slowest = pStats.reduce((max, p) => p.duration > max.duration ? p : max, pStats[0]);
+				let longest = pStats.reduce((max, p) => p.length > max.length ? p : max, pStats[0]);
+
+				document.getElementById(`p${playerNum}-stat-fastest`).innerText = `"${fastest.word}" (${fastest.duration}s)`;
+				document.getElementById(`p${playerNum}-stat-slowest`).innerText = `"${slowest.word}" (${slowest.duration}s)`;
+				document.getElementById(`p${playerNum}-stat-longest`).innerText = `"${longest.word}" (${longest.length} letters)`;
+			} else {
+				document.getElementById(`p${playerNum}-stat-fastest`).innerText = 'N/A';
+				document.getElementById(`p${playerNum}-stat-slowest`).innerText = 'N/A';
+				document.getElementById(`p${playerNum}-stat-longest`).innerText = 'N/A';
+			}
+		}
+
 		function triggerGameEnd() {
 			if (gameTimerInterval) clearInterval(gameTimerInterval);
 			isGameStarted = false;
 
 			const winnerBanner = document.getElementById('winner-banner');
-			let winner = null;
 
 			if (playerScores[1] > playerScores[2]) {
-				winner = 1;
 				winnerBanner.innerText = `🏆 Player 1 Wins! (${playerScores[1]} vs ${playerScores[2]} pts)`;
 				winnerBanner.style.color = "#27ae60";
 				winnerBanner.style.backgroundColor = "#ebfbe8";
 			} else if (playerScores[2] > playerScores[1]) {
-				winner = 2;
 				winnerBanner.innerText = `🏆 Player 2 Wins! (${playerScores[2]} vs ${playerScores[1]} pts)`;
 				winnerBanner.style.color = "#27ae60";
 				winnerBanner.style.backgroundColor = "#ebfbe8";
@@ -2335,25 +2358,9 @@
 				winnerBanner.style.backgroundColor = "#fdebd0";
 			}
 
-			// Filter stats specifically for the winning player's played words if available
-			let targetStats = playedWordsStats;
-			if (winner && playedWordsStats.some(p => p.player === winner)) {
-				targetStats = playedWordsStats.filter(p => p.player === winner);
-			}
-
-			if (targetStats.length > 0) {
-				let fastest = targetStats.reduce((min, p) => p.duration < min.duration ? p : min, targetStats[0]);
-				let slowest = targetStats.reduce((max, p) => p.duration > max.duration ? p : max, targetStats[0]);
-				let longest = targetStats.reduce((max, p) => p.length > max.length ? p : max, targetStats[0]);
-
-				document.getElementById('stat-fastest').innerText = `"${fastest.word}" (${fastest.duration}s by Player ${fastest.player})`;
-				document.getElementById('stat-slowest').innerText = `"${slowest.word}" (${slowest.duration}s by Player ${slowest.player})`;
-				document.getElementById('stat-longest').innerText = `"${longest.word}" (${longest.length} letters by Player ${longest.player})`;
-			} else {
-				document.getElementById('stat-fastest').innerText = 'N/A';
-				document.getElementById('stat-slowest').innerText = 'N/A';
-				document.getElementById('stat-longest').innerText = 'N/A';
-			}
+			// Render statistics for BOTH players
+			updatePlayerEndStats(1);
+			updatePlayerEndStats(2);
 
 			document.getElementById('end-overlay').style.display = 'flex';
 		}
@@ -2403,10 +2410,10 @@
 			playerPasswords[2] = p2Pass;
 
 			document.getElementById('turn-history-list').innerHTML = '';
-			turnCounter = 0;
-			consecutiveSkips = 0;
-			playedWordsStats = [];
+			playerTimes = { ...initialTimes };
+			isGameStarted = true;
 			initGame();
+			startTimerEngine();
 		}
 
 		function initGame() {
@@ -2425,11 +2432,6 @@
 			initializeBag();
 			replenishRack(1);
 			replenishRack(2);
-
-			document.getElementById('rack-p1').classList.add('hidden');
-			document.getElementById('rack-p2').classList.add('hidden');
-			document.getElementById('hide-btn-1').innerText = "Show";
-			document.getElementById('hide-btn-2').innerText = "Show";
 
 			updateTurnInterface();
 
