@@ -1211,10 +1211,15 @@
 							</div>
 
 							<div class="controls">
-								<button class="submit-btn" onclick="submitWord()">Submit Word</button>
-								<button class="utility skip-btn" onclick="skipTurn()">Skip Turn</button>
-								<button class="reset" onclick="resetBoard()">Reset Match</button>
-							</div>
+	<button class="submit-btn" onclick="submitWord()">Submit Word</button>
+	<button class="utility skip-btn" onclick="skipTurn()">Skip Turn</button>
+	<button class="utility" style="background-color: #8e44ad;" onclick="exportGameToCSV()">Save Game</button>
+	<button class="utility" style="background-color: #9b59b6;" onclick="document.getElementById('csv-upload').click()">Load Game</button>
+	<button class="reset" onclick="resetBoard()">Reset Match</button>
+</div>
+
+<!-- Hidden File Input for CSV Upload -->
+<input type="file" id="csv-upload" accept=".csv" style="display: none;" onchange="importGameFromCSV(event)">
 						</div>
 					</div>
 
@@ -2442,6 +2447,128 @@
 			calculateScore();
 			updateTileBagDisplay();
 		}
+
+		// --- SAVE & LOAD SYSTEM ---
+
+function exportGameToCSV() {
+    if (!isGameStarted) {
+        customAlert("You must start a game before saving.");
+        return;
+    }
+
+    // Capture the entire active game state
+    const state = {
+        boardHTML: encodeURIComponent(boardEl.innerHTML),
+        rack1HTML: encodeURIComponent(document.getElementById('rack-p1').innerHTML),
+        rack2HTML: encodeURIComponent(document.getElementById('rack-p2').innerHTML),
+        turnHistoryHTML: encodeURIComponent(document.getElementById('turn-history-list').innerHTML),
+        scores: JSON.stringify(playerScores),
+        passwords: JSON.stringify(playerPasswords),
+        initialTimes: JSON.stringify(initialTimes),
+        playerTimes: JSON.stringify(playerTimes),
+        bag: JSON.stringify(tileBag),
+        stats: JSON.stringify(playedWordsStats),
+        tileCounter: tileCounter,
+        turnCounter: turnCounter,
+        activePlayer: activePlayer,
+        consecutiveSkips: consecutiveSkips
+    };
+
+    // Format as a 2-column CSV (Property, Value)
+    let csvContent = "Property,Value\n";
+    for (let key in state) {
+        let val = String(state[key]).replace(/"/g, '""'); // Escape double quotes for CSV standards
+        csvContent += `"${key}","${val}"\n`;
+    }
+
+    // Export to Local Storage (via Download Blob)
+    const blob = new Blob([csvContent], { type: 'text/csv;charset=utf-8;' });
+    const link = document.createElement("a");
+    const url = URL.createObjectURL(blob);
+    link.setAttribute("href", url);
+    link.setAttribute("download", `Scrabble_Save_Turn${turnCounter}.csv`);
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
+}
+
+function importGameFromCSV(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        const text = e.target.result;
+        const state = {};
+        
+        // Parse the CSV rows using regex to extract Key/Value pairs
+        const rowRegex = /"([^"]+)","(.*)"/g;
+        let match;
+        while ((match = rowRegex.exec(text)) !== null) {
+            let key = match[1];
+            let val = match[2].replace(/""/g, '"'); // Unescape double quotes
+            state[key] = val;
+        }
+
+        if (Object.keys(state).length === 0) {
+            customAlert("Invalid or corrupted save file.");
+            return;
+        }
+
+        // 1. Clear Start Screens if loaded from the main menu
+        document.getElementById('start-overlay').style.display = 'none';
+        document.getElementById('time-overlay').style.display = 'none';
+
+        // 2. Restore DOM Elements (Decoded from URI components)
+        boardEl.innerHTML = decodeURIComponent(state.boardHTML);
+        document.getElementById('rack-p1').innerHTML = decodeURIComponent(state.rack1HTML);
+        document.getElementById('rack-p2').innerHTML = decodeURIComponent(state.rack2HTML);
+        document.getElementById('turn-history-list').innerHTML = decodeURIComponent(state.turnHistoryHTML);
+
+        // 3. Restore JS Variables
+        playerScores = JSON.parse(state.scores);
+        playerPasswords = JSON.parse(state.passwords);
+        initialTimes = JSON.parse(state.initialTimes);
+        playerTimes = JSON.parse(state.playerTimes);
+        tileBag = JSON.parse(state.bag);
+        playedWordsStats = JSON.parse(state.stats);
+
+        tileCounter = parseInt(state.tileCounter);
+        turnCounter = parseInt(state.turnCounter);
+        activePlayer = parseInt(state.activePlayer);
+        consecutiveSkips = parseInt(state.consecutiveSkips);
+
+        // 4. Reset Turn States
+        canChallenge = false;
+        challengeRollbackSnapshot = null;
+        isSwapOpen = false;
+        swappingPlayer = null;
+        pendingBlankTile = null;
+
+        // 5. Update UI & Engines
+        refreshScoreInterface();
+        updateTurnInterface();
+        calculateScore();
+        updateTileBagDisplay();
+        updateTimerDisplay();
+
+        isGameStarted = true;
+        isPaused = false;
+        turnStartSnapshot = captureSnapshot();
+        
+        // Restart the timer engine
+        startTimerEngine(); 
+        
+        // Reset the file input so the same file can be loaded again if needed
+        event.target.value = ''; 
+        
+        customAlert("Game state successfully restored!");
+    };
+    
+    reader.readAsText(file);
+}
+
+				
 			</script>
 </body>
 
